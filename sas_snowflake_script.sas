@@ -19,6 +19,16 @@
         disconnect from mycon;
     quit;
 
+
+
+    /* Step 3: Insert data using passthrough INSERT INTO ... SELECT * FROM local SAS dataset */
+    proc sql;
+        %connectsflk;
+        insert into mycon.&sf_table
+        select * from work.imported_data;
+        disconnect from mycon;
+    quit;
+    
     /* Step 3: Use PROC APPEND or explicit upload via FEDSQL */
     libname snowflake sasiosnf dsn='snowflake_dsn' user='your_user' password='your_pass';
 
