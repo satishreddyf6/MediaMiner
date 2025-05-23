@@ -39,3 +39,28 @@
     libname snowflake clear;
 
 %mend;
+
+
+
+
+libname snowflake sasiosnf
+    server="fs.us-east-1.privatelink.snowflakecomputing.com,"
+    database=SFAAP
+    schema=WS_CARD_FRAUD_DATA
+    user=SF_SASFMTFP_SVC
+    password=ln3sak2707xh2101
+    conopts="proxy=http://proxy.discoverfinancial.com:8080; no_proxy=.snowflakecomputing.com;"
+    role=ROLE_SF_SASFMTFP_SVC
+    warehouse=ENT_DIRBNK_CARD_USER_STD_WH;
+
+
+
+proc append base=snowflake.PABLO_TEST_052325
+    data=work.imported_data;
+run;
+
+
+
+data snowflake.PABLO_TEST_052325;
+    set work.imported_data;
+run;
